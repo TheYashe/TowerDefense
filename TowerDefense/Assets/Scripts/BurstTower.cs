@@ -40,7 +40,7 @@ namespace AFSInterview
             {
                 yield return burstInterval;
 
-                var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity).GetComponent<Bullet>();
+                Bullet bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity).GetComponent<Bullet>();
                 bullet.Initialize(targetEnemy.gameObject);
             }
         }
