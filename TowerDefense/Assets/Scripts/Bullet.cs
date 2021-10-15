@@ -9,18 +9,16 @@ namespace AFSInterview
         [SerializeField] private float speed;
 
         private GameObject targetObject;
+        private Vector3 direction;
 
-        public virtual void Initialize(GameObject target)
+        public void Initialize(GameObject target)
         {
             targetObject = target;
+            direction = (targetObject.transform.position - transform.position).normalized;
         }
 
         private void Update()
         {
-            if (targetObject == null)
-                return;
-
-            var direction = (targetObject.transform.position - transform.position).normalized;
             transform.position += direction * speed * Time.deltaTime;
         }
 
