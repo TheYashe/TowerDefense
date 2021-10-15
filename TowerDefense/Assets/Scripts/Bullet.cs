@@ -17,13 +17,20 @@ namespace AFSInterview
 
         private void Update()
         {
-            var direction = (targetObject.transform.position - transform.position).normalized;
+            if (targetObject == null)
+                return;
 
+            var direction = (targetObject.transform.position - transform.position).normalized;
             transform.position += direction * speed * Time.deltaTime;
         }
 
         private void OnCollisionEnter(Collision other)
         {
+            if (other.gameObject.CompareTag("Ground"))
+            {
+                Destroy(gameObject);
+            }
+
             if (other.gameObject.CompareTag("Enemy"))
             {
                 Destroy(gameObject);

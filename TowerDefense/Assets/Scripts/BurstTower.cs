@@ -11,7 +11,6 @@ namespace AFSInterview
         [SerializeField] private int bulletsPerBurst;
 
         private WaitForSeconds burstInterval = new WaitForSeconds(0.25f);
-        private WaitForSeconds towerDelayToNextBurst = new WaitForSeconds(5f);
         private Enemy targetEnemy;
 
         private void Update()
@@ -28,11 +27,21 @@ namespace AFSInterview
             {
                 if (targetEnemy != null)
                 {
-                    var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity).GetComponent<Bullet>();
-                    bullet.Initialize(targetEnemy.gameObject);
+                    StartCoroutine(ShotDelayBullet());
                 }
 
                 fireTimer = firingRate;
+            }
+        }
+
+        private IEnumerator ShotDelayBullet()
+        {
+            for (int i = 0; i < bulletsPerBurst; i++)
+            {
+                yield return burstInterval;
+
+                var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity).GetComponent<Bullet>();
+                bullet.Initialize(targetEnemy.gameObject);
             }
         }
     }
