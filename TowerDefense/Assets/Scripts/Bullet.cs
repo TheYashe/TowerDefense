@@ -1,29 +1,16 @@
-﻿namespace AFSInterview
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace AFSInterview
 {
-    using UnityEngine;
-
-    public class Bullet : MonoBehaviour
+    public abstract class Bullet : MonoBehaviour
     {
-        [SerializeField] private float speed;
+        public GameObject targetObject;
 
-        private GameObject targetObject;
-
-        public void Initialize(GameObject target)
+        public virtual void Initialize(GameObject target)
         {
             targetObject = target;
-        }
-
-        private void Update()
-        {
-            var direction = (targetObject.transform.position - transform.position).normalized;
-
-            transform.position += direction * speed * Time.deltaTime;
-
-            if ((transform.position - targetObject.transform.position).magnitude <= 0.2f)
-            {
-                Destroy(gameObject);
-                Destroy(targetObject);
-            }
         }
     }
 }

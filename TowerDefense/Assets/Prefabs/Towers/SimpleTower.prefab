@@ -51,10 +51,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -79,6 +81,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5225361447118665096
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,10 +121,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8728408500412361835}
+  - component: {fileID: -20385095561259241}
   - component: {fileID: 8064655629391734763}
   - component: {fileID: 8944443891534172367}
   - component: {fileID: 5827053421112962873}
-  - component: {fileID: -20385095561259241}
   m_Layer: 0
   m_Name: SimpleTower
   m_TagString: Untagged
@@ -145,6 +148,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-20385095561259241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8481531145051783542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c40a3d30c4a44e744820f0241f889ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 7251337396528109554, guid: bf11f6354539ac0438eed729f7a562e6,
+    type: 3}
+  bulletSpawnPoint: {fileID: 5809919413682724424}
+  firingRate: 2
+  firingRange: 4
 --- !u!33 &8064655629391734763
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -164,10 +184,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -192,6 +214,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!136 &5827053421112962873
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -206,20 +229,3 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &-20385095561259241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8481531145051783542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c40a3d30c4a44e744820f0241f889ec1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 7251337396528109554, guid: bf11f6354539ac0438eed729f7a562e6,
-    type: 3}
-  bulletSpawnPoint: {fileID: 5809919413682724424}
-  firingRate: 2
-  firingRange: 4

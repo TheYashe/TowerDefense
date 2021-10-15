@@ -6,19 +6,20 @@
 
     public class GameplayManager : MonoBehaviour
     {
-        [Header("Prefabs")] 
+        [Header("Prefabs")]
         [SerializeField] private GameObject enemyPrefab;
-        [SerializeField] private GameObject towerPrefab;
+        [SerializeField] private GameObject simpleTowerPrefab;
+        [SerializeField] private GameObject gravityTowerPrefab;
 
-        [Header("Settings")] 
+        [Header("Settings")]
         [SerializeField] private Vector2 boundsMin;
         [SerializeField] private Vector2 boundsMax;
         [SerializeField] private float enemySpawnRate;
 
-        [Header("UI")] 
+        [Header("UI")]
         [SerializeField] private GameObject enemiesCountText;
         [SerializeField] private GameObject scoreText;
-        
+
         private List<Enemy> enemies;
         private float enemySpawnTimer;
         private int score;
@@ -45,9 +46,22 @@
                 if (Physics.Raycast(ray, out var hit, LayerMask.GetMask("Ground")))
                 {
                     var spawnPosition = hit.point;
-                    spawnPosition.y = towerPrefab.transform.position.y;
+                    spawnPosition.y = simpleTowerPrefab.transform.position.y;
 
-                    SpawnTower(spawnPosition);
+                    SpawnTower(simpleTowerPrefab, spawnPosition);
+                }
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(ray, out var hit, LayerMask.GetMask("Ground")))
+                {
+                    var spawnPosition = hit.point;
+                    spawnPosition.y = simpleTowerPrefab.transform.position.y;
+
+                    SpawnTower(gravityTowerPrefab, spawnPosition);
                 }
             }
 
@@ -58,7 +72,7 @@
         private void SpawnEnemy()
         {
             var position = new Vector3(Random.Range(boundsMin.x, boundsMax.x), enemyPrefab.transform.position.y, Random.Range(boundsMin.y, boundsMax.y));
-            
+
             var enemy = Instantiate(enemyPrefab, position, Quaternion.identity).GetComponent<Enemy>();
             enemy.OnEnemyDied += Enemy_OnEnemyDied;
             enemy.Initialize(boundsMin, boundsMax);
@@ -72,10 +86,10 @@
             score++;
         }
 
-        private void SpawnTower(Vector3 position)
+        private void SpawnTower(GameObject tower, Vector3 position)
         {
-            var tower = Instantiate(towerPrefab, position, Quaternion.identity).GetComponent<SimpleTower>();
-            tower.Initialize(enemies);
+            var newTower = Instantiate(tower, position, Quaternion.identity).GetComponent<Tower>();
+            newTower.Initialize(enemies);
         }
     }
 }
