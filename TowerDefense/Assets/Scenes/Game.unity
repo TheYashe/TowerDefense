@@ -156,7 +156,7 @@ MonoBehaviour:
     type: 3}
   simpleTowerPrefab: {fileID: 8481531145051783542, guid: 25d0f396843308e46a1c35b076505faf,
     type: 3}
-  gravityTowerPrefab: {fileID: 4276619859747648214, guid: 8d5c782a09ced8044a85d8500346ccd0,
+  burstTowerPrefab: {fileID: 8481531145051783542, guid: 705ff86bec8c01843bac0ae8bc014e42,
     type: 3}
   boundsMin: {x: -12, y: -8}
   boundsMax: {x: 12, y: 13}

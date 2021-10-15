@@ -9,7 +9,7 @@
         [Header("Prefabs")]
         [SerializeField] private GameObject enemyPrefab;
         [SerializeField] private GameObject simpleTowerPrefab;
-        [SerializeField] private GameObject gravityTowerPrefab;
+        [SerializeField] private GameObject burstTowerPrefab;
 
         [Header("Settings")]
         [SerializeField] private Vector2 boundsMin;
@@ -61,7 +61,7 @@
                     var spawnPosition = hit.point;
                     spawnPosition.y = simpleTowerPrefab.transform.position.y;
 
-                    SpawnTower(gravityTowerPrefab, spawnPosition);
+                    SpawnTower(burstTowerPrefab, spawnPosition);
                 }
             }
 

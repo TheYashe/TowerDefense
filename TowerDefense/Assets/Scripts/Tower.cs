@@ -10,7 +10,7 @@ namespace AFSInterview
         [SerializeField] public float firingRange;
 
         public IReadOnlyList<Enemy> enemies;
-        public float fireTimer;
+        protected float fireTimer;
 
         public virtual void Initialize(IReadOnlyList<Enemy> enemies)
         {
