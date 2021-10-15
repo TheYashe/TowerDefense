@@ -5,11 +5,6 @@
 
     public class SimpleTower : Tower
     {
-        [SerializeField] private GameObject bulletPrefab;
-        [SerializeField] private Transform bulletSpawnPoint;
-
-        private Enemy targetEnemy;
-
         private void Update()
         {
             targetEnemy = FindClosestEnemy();
@@ -24,8 +19,8 @@
             {
                 if (targetEnemy != null)
                 {
-                    var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity).GetComponent<Bullet>();
-                    bullet.Initialize(targetEnemy.gameObject);
+                    Bullet bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity).GetComponent<Bullet>();
+                    bullet.Initialize(targetEnemy.transform.position);
                 }
 
                 fireTimer = firingRate;

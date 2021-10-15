@@ -16,6 +16,10 @@
 
         private float speed;
         private Vector3 target;
+        private Vector3 direction;
+
+        public float Speed { get => speed; }
+        public Vector3 Direction { get => direction; }
 
         public void Initialize(Vector2 boundsMin, Vector2 boundsMax)
         {
@@ -34,7 +38,7 @@
 
         private void Update()
         {
-            var direction = (target - transform.position).normalized;
+            direction = (target - transform.position).normalized;
 
             transform.position += direction * speed * Time.deltaTime;
             if ((transform.position - target).magnitude <= 0.1f)

@@ -4,21 +4,25 @@ using UnityEngine;
 
 namespace AFSInterview
 {
-    public abstract class Tower : MonoBehaviour
+    public class Tower : MonoBehaviour
     {
-        [SerializeField] public float firingRate;
-        [SerializeField] public float firingRange;
+        [Header("References")]
+        [SerializeField] protected GameObject bulletPrefab;
+        [SerializeField] protected Transform bulletSpawnPoint;
+        [SerializeField] protected float firingRate;
+        [SerializeField] protected float firingRange;
 
         public IReadOnlyList<Enemy> enemies;
+        protected Enemy targetEnemy;
         protected float fireTimer;
 
-        public virtual void Initialize(IReadOnlyList<Enemy> enemies)
+        public void Initialize(IReadOnlyList<Enemy> enemies)
         {
             this.enemies = enemies;
             fireTimer = firingRate;
         }
 
-        public Enemy FindClosestEnemy()
+        protected Enemy FindClosestEnemy()
         {
             Enemy closestEnemy = null;
             var closestDistance = float.MaxValue;

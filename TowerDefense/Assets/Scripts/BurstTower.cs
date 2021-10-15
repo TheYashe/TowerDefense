@@ -6,19 +6,19 @@ namespace AFSInterview
 {
     public class BurstTower : Tower
     {
-        [SerializeField] private GameObject bulletPrefab;
-        [SerializeField] private Transform bulletSpawnPoint;
+        [SerializeField] private GameObject predictionPoint;
+        [SerializeField] private bool usePredictedPosition;
         [SerializeField] private int bulletsPerBurst;
 
         private WaitForSeconds burstInterval = new WaitForSeconds(0.25f);
-        private Enemy targetEnemy;
 
         private void Update()
         {
             targetEnemy = FindClosestEnemy();
+            SetPredictedPoint();
             if (targetEnemy != null)
             {
-                var lookRotation = Quaternion.LookRotation(targetEnemy.transform.position - transform.position);
+                var lookRotation = Quaternion.LookRotation(predictionPoint.transform.position - transform.position);
                 transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, lookRotation.eulerAngles.y, transform.rotation.eulerAngles.z);
             }
 
@@ -28,9 +28,8 @@ namespace AFSInterview
                 if (targetEnemy != null)
                 {
                     StartCoroutine(ShotDelayBullet());
+                    fireTimer = firingRate;
                 }
-
-                fireTimer = firingRate;
             }
         }
 
@@ -40,9 +39,31 @@ namespace AFSInterview
             {
                 yield return burstInterval;
 
-                Bullet bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity).GetComponent<Bullet>();
-                bullet.Initialize(targetEnemy.gameObject);
+                if (targetEnemy != null)
+                {
+                    Vector3 enemyPosition = usePredictedPosition ? PredictedEnemyPosition() : targetEnemy.transform.position;
+                    Bullet bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity).GetComponent<Bullet>();
+                    bullet.Initialize(enemyPosition);
+                }
             }
+        }
+
+        private void SetPredictedPoint()
+        {
+            if (targetEnemy != null)
+            {
+                predictionPoint.SetActive(true);
+                predictionPoint.transform.position = PredictedEnemyPosition();
+            }
+            else
+            {
+                predictionPoint.SetActive(false);
+            }
+        }
+
+        private Vector3 PredictedEnemyPosition()
+        {
+            return targetEnemy.transform.position + (targetEnemy.Direction.normalized * targetEnemy.Speed * Time.deltaTime);
         }
     }
 }

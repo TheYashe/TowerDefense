@@ -11,10 +11,9 @@ namespace AFSInterview
         private GameObject targetObject;
         private Vector3 direction;
 
-        public void Initialize(GameObject target)
+        public void Initialize(Vector3 position)
         {
-            targetObject = target;
-            direction = (targetObject.transform.position - transform.position).normalized;
+            direction = (position - transform.position).normalized;
         }
 
         private void Update()
@@ -32,7 +31,7 @@ namespace AFSInterview
             if (other.gameObject.CompareTag("Enemy"))
             {
                 Destroy(gameObject);
-                Destroy(targetObject);
+                Destroy(other.gameObject);
             }
         }
     }
