@@ -17,8 +17,8 @@
         [SerializeField] private float enemySpawnRate;
 
         [Header("UI")]
-        [SerializeField] private GameObject enemiesCountText;
-        [SerializeField] private GameObject scoreText;
+        [SerializeField] private TextMeshProUGUI enemiesCountText;
+        [SerializeField] private TextMeshProUGUI scoreText;
 
         private List<Enemy> enemies;
         private float enemySpawnTimer;
@@ -27,6 +27,7 @@
         private void Awake()
         {
             enemies = new List<Enemy>();
+            RefreshUI();
         }
 
         private void Update()
@@ -64,9 +65,6 @@
                     SpawnTower(burstTowerPrefab, spawnPosition);
                 }
             }
-
-            scoreText.GetComponent<TextMeshProUGUI>().text = "Score: " + score;
-            enemiesCountText.GetComponent<TextMeshProUGUI>().text = "Enemies: " + enemies.Count;
         }
 
         private void SpawnEnemy()
@@ -84,12 +82,19 @@
         {
             enemies.Remove(enemy);
             score++;
+            RefreshUI();
         }
 
         private void SpawnTower(GameObject tower, Vector3 position)
         {
             var newTower = Instantiate(tower, position, Quaternion.identity).GetComponent<Tower>();
             newTower.Initialize(enemies);
+        }
+
+        private void RefreshUI()
+        {
+            scoreText.SetText($"Score: {score}");
+            enemiesCountText.SetText($"Enemies: {enemies.Count}");
         }
     }
 }
